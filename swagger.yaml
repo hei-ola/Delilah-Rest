@@ -1,0 +1,165 @@
+openapi: "3.0.0"
+info:
+  description: "Este proyecto plantea la creación de un sistema de pedidos online para un restaurante y El objetivo del trabajo es generar el backend de una app de pedidos de comida llamada Delilah Restó, generando la arquitectura, bases de datos relacionales, endpoints funcionales y documentación."
+  version: "1.0.0"
+  title: "Delilah Rest"
+servers:
+  url: "localhost:3000"
+
+paths:
+  /product:
+    get:
+       description: "Get de todos los productos"
+       responses:
+          200:
+           description: "get api-controller"
+    post:
+      description: "Crear un nuevo plato SOLO ADMIN con Token Validado"
+      security: []
+      parameters:
+        - name: "title"
+          description: "titulo del producto"
+          in: "req.body.title"
+          type: "string"
+       - name: "cost"  
+          description: "precio del producto"
+          in: "req.body.precio"
+          type: "integer"
+       - name: "picture"  
+          description: "imagen del producto"
+          in: "req.body.imagen"
+          type: "string"
+      responses:
+           500:
+            description: "servidor" 
+           200: 
+            description: "producto creado correctamente"
+    put:
+       description: "Actualizar SOLO ADMIN con Token Validado"
+       security: []
+       parameters:
+       - name: "id del producto a borrar"
+         in: "req.params.id"
+         type: "integer"
+       - name: "picture"  
+         description: "imagen del producto a actualizar"
+         in: "req.body.picture"
+         type: "string"
+       - name: "title"
+        description: "titulo del producto a actualizar"
+         in: "req.body.title"
+         type: "string"
+       - name: "cost"  
+         description: "valor del producto a actualizar"
+         in: "req.body.precio"
+         type: "integer"
+       responses:
+           500:
+            description: "servidor" 
+           200: 
+            description: "producto actualizado"
+      delete:
+       description: "eliminar el producto de la bd solo admin"
+       security: []
+       parameters:
+       - name: "id"
+         description: "id del producto a eliminar"
+         in: "req.params.id"
+         type: "integer"
+       responses:
+           500:
+            description: "servidor"
+           200: 
+            description: "producto eliminado correctamente"
+            
+    /order:
+       get: 
+        description: "Get conseguir pedido por id solo admin"
+        - name: "id del pedido"
+          in: "req.params.id"
+          type: "integer"
+        responses:
+          200:
+           description: "get api-controller"
+           
+    '/order/{orderAdmin}':
+      get: 
+       description: "Get de todas ordenes solo admin"
+       responses:
+          200:
+           description: "get api-controller"
+      
+      post:
+        description: "Crear un nuevo pedido"
+        security: []
+        parameters:
+        - name: "quantity_orders"
+          description: "cantidad que pedira del producto"
+          in: "req.body.quantity_orders"
+          type: "integer"
+       - name: "total"  
+          description: "valor total de su pedido"
+          in: "req.body.total"
+          type: "decimal"
+       - name: "productoId"  
+          description: "id del producto"
+          in: "req.product.id"
+          type: "integer"
+       - name: "id del usuario"
+          in: "req.user.id"
+          type: "integer"
+      responses:
+           500:
+            description: "servidor" 
+           200: 
+            description: "pedido actualizado"
+      put:
+       description: "Actualizar SOLO ADMIN con Token Validado"
+       security: []
+       parameters:
+       - name: "id del pedido a borrar"
+         in: "req.params.id"
+         type: "integer"
+       - name: "estado"  
+         description: "actualizar estado del pedido"
+         in: "req.body.estado"
+         type: "string"
+       responses:
+           500:
+            description: "servidor" 
+           200: 
+            description: "pedido actualizado"
+      delete:
+       description: "eliminar el pedido solo admin"
+       security: []
+       parameters:
+       - name: "id"
+         description: "id del pedido a eliminar"
+         in: "req.params.id"
+         type: "integer"
+       responses:
+           500:
+            description: "servidor"
+           200: 
+            description: "pedido eliminado correctamente"
+      
+    /auth:
+      post:
+       description: "login de usuario"
+       security: []
+       parameters:
+       - name: "email"  
+          description: "correo electronico del usuario"
+          in: "req.body.email"
+          type: "string"
+       - name: "password"  
+          description: "contraseña del usuario"
+          in: "req.body.password"
+          type: "string"
+      responses:
+           400:
+             description: "usuario o contraseña incorrecta" 
+           500:
+            description: "servidor" 
+           200: 
+            description: "usuario logeado correctamente"
