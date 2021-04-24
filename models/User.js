@@ -11,12 +11,10 @@ const User = db.define('user', {
         autoIncrement: true
     },
     name: {
-        type: Sequelize.STRING(30),
-        allowNull: false
+        type: Sequelize.STRING(30)
     },
     lastname: {
-        type: Sequelize.STRING(60),
-        allowNull: false
+        type: Sequelize.STRING(60)
     },
     email: {
         type: Sequelize.STRING(60),

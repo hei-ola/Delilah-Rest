@@ -1,0 +1,361 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/delilah-rest/api/1.0.0
+info:
+  version: '1.0'
+  title: Delilah Resto
+  description: >-
+    Este proyecto plantea la creación de un sistema de pedidos online para
+    un restaurante y El objetivo del trabajo es generar el backend de una
+    app de pedidos de comida llamada Delilah Restó, generando la
+    arquitectura, bases de datos relacionales, endpoints funcionales y
+    documentación.
+ 
+
+paths:
+  /product:
+    get:
+      tags:
+      - Product
+      description: Get de todos los productos
+      responses:
+        200:
+          description: get api-controller
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#/components/schemas/Products'
+    post:
+      tags: 
+      - Product
+      description: Crear un nuevo plato SOLO ADMIN con Token Validado
+      requestBody:
+        description: ejemplo de como seria agregado un producto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Products' 
+      responses:
+           500:
+            description: servidor
+           200:
+            description: producto creado correctamente     
+      
+  /product/{id}:
+    put:
+      description: Actualizar SOLO ADMIN con Token Validado por id
+      tags: 
+      - Product
+      parameters: 
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: number
+          example: 2
+      requestBody:
+        description: ejemplo de producto de actualizacion
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre: 
+                  type: string
+                  example: patacon
+                precio:
+                  type: number
+                  format: int32
+                  example: 3000
+      responses:
+           500:
+            description: servidor 
+           200: 
+            description: producto actualizado
+    delete:
+      description: eliminar SOLO ADMIN con Token Validado por id
+      tags: 
+      - Product
+      parameters: 
+      - in: path
+        name: id
+        description: id del producto
+        required: true
+        schema:
+          type: number
+          example: 1
+      responses:
+           500:
+            description: servidor
+           200: 
+            description: producto eliminado correctamente
+  /orders:
+    get:
+      description: Get de las ordenes del usuario logeado
+      tags: 
+      - order
+      responses:
+          200:
+           description: get api-controller
+    post:
+      description: Crear un nuevo pedido
+      tags: 
+      - order
+      requestBody:
+        description: se coloca id del producto que se necesita, y la cantidad
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/orders'      
+      responses:
+           500:
+            description: servidor 
+           200: 
+            description: pedido actualizado
+  /orders/ordersadmin:
+    get:
+      description: Get de todas ordenes creadas solo admin
+      tags: 
+      - order
+      responses:
+          200:
+           description: get api-controller
+
+  /orders/{id}:
+    get:
+    get:
+      description: Get de todas ordenes creadas solo admin
+      tags: 
+      - order
+      responses:
+          200:
+           description: get api-controller
+      description: Get conseguir pedido por id solo admin
+      tags: 
+      - order
+      parameters: 
+      - in: path
+        name: id
+        required: true
+        description: Id del product
+        schema:
+          type: number
+          example: 3
+      responses:
+        200:
+          description: get api-controller
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/order'
+    put:
+      description: Actualizar SOLO ADMIN con Token Validado
+      tags: 
+      - order
+      parameters: 
+      - in: path
+        name: id
+        required: true
+        description: id del pedido
+        schema:
+          type: string
+          example: enviado
+      requestBody:
+        description: colocamos en que estado esta el pedido
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                estado: 
+                  type: string
+                  example: cambio
+      responses:
+           500:
+            description: servidor 
+           200: 
+            description: pedido actualizado
+    delete:
+      description: eliminar el pedido solo admin
+      tags: 
+      - order
+      parameters: 
+      - in: path
+        name: id
+        description: id del pedido
+        required: true
+        schema:
+          type: number
+          example: 1
+      responses:
+           500:
+            description: servidor
+           200: 
+            description: pedido eliminado correctamente
+  /users:
+    get:
+      description: obtener todos los usuarios solo admin
+      tags: 
+      - users
+      responses:
+        200:
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+    post:
+      tags: 
+      - users
+      description: Permite registrar un nuevo usuario
+      requestBody:
+        description: ejemplo de registro.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        200:
+          description: post api-controller
+        401:
+          description: The rols not exist. only accept USER and ADMIN
+        500:
+          description: servidor
+  /auth:
+    post:
+      description: iniciar seccion
+      tags: 
+      - Login
+      requestBody:
+        description: Objeto para login.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: usuario
+                password:
+                  type: string
+                  example: 12345
+      responses:
+        200:
+          description: Inicio de sesión satisfactorio (JWT devuelto)
+          content:
+            application/json:
+              schema:
+                type: string
+                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwibmlja25hbWUiOiJ1c3VhcmlvX2FkbWluIiwiaXNBZG1pbiI6MSwiaWF0IjoxNjA5NTQzOTM1fQ.GjliZIFbqybAEo5ydIq6GU06YnxqehZjBUUxPEW_6J4
+        401:
+          description: Autenticación fallida
+          
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        title:
+            type: string
+            example: buñuelos
+        cost:
+            type: number
+            format: int32
+            example: 500
+        picture:
+            type: string
+            example: "www.imagen.com"
+    order:
+      type: array
+      items:
+        properties:
+          estado:
+            type: string
+            example: Nuevo
+          id: 
+            type: number
+            example: 3
+          detalle:
+            type: string
+            example: 1X buñuelo,1X empanada
+          forma_de_pago: 
+            type: string
+            example: Efectivo
+          total:
+            type: number
+            example: 1500
+          usuario:
+            type: string
+            example: tevan soto
+          direccion:
+            type: string
+            example: carrera 40 num 35 -86
+    orders:
+      type: object
+      properties:
+        detalle:
+            type: array
+            items:
+              properties:
+                id_product:
+                  type: number
+                quantity_orders:
+                  type: number
+            example: 
+            - id_product: 3
+              quantity_orders: 1
+            - id_product: 1
+              quantity_orders: 2
+        forma_pago:
+            type: number
+            example: 1
+        total:
+          type: number
+          example: 1500
+    Users:
+      type: array
+      items:
+        properties:
+          id:
+            type: number
+            example: 1
+          name: 
+            type: string
+            example: tevan
+          last-name:
+            type: string
+            example: soto
+          phone:
+            type: string
+            example: 771238
+          adress:
+            type: string
+            example: carrera 40 num 35 -86
+          password:
+            type: string
+            example: ae768456835750ee8c3a3d2f15a6b00e
+          rol:
+            type: string
+            example: ADMIN
+    User:
+      type: object
+      properties:
+        name: 
+          type: string
+          example: User
+        last-name:
+          type: string
+          example: De Prueba
+        phone:
+          type: string
+          example: 32462
+        adress:
+          type: string
+          example: Carrera 11
+        password:
+          type: string
+          example: "120"

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
-const Product = require('./Product');
+const Orderdet = require('./Orderdet');
 const User = require('./User');
 
 
@@ -11,12 +11,11 @@ const Order = db.define('order', {
         primaryKey: true,
         autoIncrement: true
     },
-    quantity_orders: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
     total: {
         type: Sequelize.DECIMAL,
+    },
+    formpag: {
+        type: Sequelize.STRING(60)
     },
     estado: {
         type: Sequelize.STRING(60),
@@ -24,9 +23,8 @@ const Order = db.define('order', {
     }
 });
 
-
 Order.belongsTo(User);
-Order.belongsTo(Product);
+Order.hasMany(Orderdet, { foreignKey: 'id_pedido' });
 
 
 module.exports = Order;

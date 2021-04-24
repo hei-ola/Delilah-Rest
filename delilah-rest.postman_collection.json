@@ -1,0 +1,490 @@
+{
+	"info": {
+		"_postman_id": "ff6a8210-7e02-456f-bc4e-c0c094a024e6",
+		"name": "delilah-rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "users get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxODU5ODA2MywiZXhwIjoxNjE4NjA1MjYzfQ.AOIeYvMnLkgOJhxKT2y2MfQUOy077c0DiI5nGXOdE90",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						},
+						"description": "solo si es administrador podra ver todos los usuarios que existen"
+					},
+					"response": []
+				},
+				{
+					"name": "users post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxODU5ODA2MywiZXhwIjoxNjE4NjA1MjYzfQ.AOIeYvMnLkgOJhxKT2y2MfQUOy077c0DiI5nGXOdE90",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"jose\",\r\n    \"lastname\": \"jose\",\r\n    \"email\": \"jose@jose.com\",\r\n    \"password\": \"1234\",\r\n    \"phone\": \"222222\",\r\n    \"adress\": \"carrera y calle\",\r\n    \"rol\": \"USER\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						},
+						"description": "cualquier persona se puede registrar el rol debe asegurarse que vaya en mayusculas y solo acepta que sea ADMIN Y USER"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "product get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxODU5ODA2MywiZXhwIjoxNjE4NjA1MjYzfQ.AOIeYvMnLkgOJhxKT2y2MfQUOy077c0DiI5nGXOdE90",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"jose\",\r\n    \"lastname\": \"jose\",\r\n    \"email\": \"jose@jose.com\",\r\n    \"password\": \"1234\",\r\n    \"phone\": \"222222\",\r\n    \"adress\": \"carrera y calle\",\r\n    \"rol\": \"USER\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/products",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						},
+						"description": "solo administrador puede ver todos los productos que existen"
+					},
+					"response": []
+				},
+				{
+					"name": "product post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxODU5ODA2MywiZXhwIjoxNjE4NjA1MjYzfQ.AOIeYvMnLkgOJhxKT2y2MfQUOy077c0DiI5nGXOdE90",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"picture\": \"www.imagen.com\", \r\n    \"title\": \"chocolate\",\r\n    \"cost\": \"5000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/products",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						},
+						"description": "se requiere que el token sea solo de administrador \r\nagrega titulo imagen y valor"
+					},
+					"response": []
+				},
+				{
+					"name": "product put",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxODU5ODA2MywiZXhwIjoxNjE4NjA1MjYzfQ.AOIeYvMnLkgOJhxKT2y2MfQUOy077c0DiI5nGXOdE90",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"picture\": \"www.imagen.com\", \r\n    \"title\": \"chocolate\",\r\n    \"cost\": \"4000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/products/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"5"
+							]
+						},
+						"description": "despues de validar token de administrador colocamos el id como parametro para saber que producto se actualizara"
+					},
+					"response": []
+				},
+				{
+					"name": "product delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxODU5ODA2MywiZXhwIjoxNjE4NjA1MjYzfQ.AOIeYvMnLkgOJhxKT2y2MfQUOy077c0DiI5nGXOdE90",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"picture\": \"www.imagen.com\", \r\n    \"title\": \"chocolate\",\r\n    \"cost\": \"4000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/products/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"5"
+							]
+						},
+						"description": "eliminamos por id del producto "
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "orders",
+			"item": [
+				{
+					"name": "order get por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxODU5ODA2MywiZXhwIjoxNjE4NjA1MjYzfQ.AOIeYvMnLkgOJhxKT2y2MfQUOy077c0DiI5nGXOdE90",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"picture\": \"www.imagen.com\", \r\n    \"title\": \"chocolate\",\r\n    \"cost\": \"4000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/order/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order",
+								"2"
+							]
+						},
+						"description": "el administrador podra traer ordenes por el id"
+					},
+					"response": []
+				},
+				{
+					"name": "order get ",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxODU5ODA2MywiZXhwIjoxNjE4NjA1MjYzfQ.AOIeYvMnLkgOJhxKT2y2MfQUOy077c0DiI5nGXOdE90",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"picture\": \"www.imagen.com\", \r\n    \"title\": \"chocolate\",\r\n    \"cost\": \"4000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/order",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order"
+							]
+						},
+						"description": "seas usuario o administrador aqui estaran solo tus ordenes con su descripcion "
+					},
+					"response": []
+				},
+				{
+					"name": "order get admin",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxODU5ODA2MywiZXhwIjoxNjE4NjA1MjYzfQ.AOIeYvMnLkgOJhxKT2y2MfQUOy077c0DiI5nGXOdE90",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"picture\": \"www.imagen.com\", \r\n    \"title\": \"chocolate\",\r\n    \"cost\": \"4000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/order/ordersadmin",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order",
+								"ordersadmin"
+							]
+						},
+						"description": "solo el administrador podra ver todas las ordenes"
+					},
+					"response": []
+				},
+				{
+					"name": "order post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxOTMwMzIwMCwiZXhwIjoxNjE5MzEwNDAwfQ.w3CQ-OHai4YH6k3OGuCEvG06AYyqakb6NDxRVl8ZLYk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"formpag\":\"efectivo\",\r\n    \r\n\"items\":[\r\n{\r\n    \"product_id\": \"4\", \r\n    \"quantity_orders\": \"1\"\r\n},\r\n{\r\n   \"product_id\": \"3\", \r\n    \"quantity_orders\": \"1\"\r\n},\r\n{\r\n   \"product_id\": \"1\", \r\n    \"quantity_orders\": \"5\"\r\n},\r\n{\r\n   \"product_id\": \"2\", \r\n    \"quantity_orders\": \"8\"\r\n}\r\n]\r\n}\r\n \r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/order",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order"
+							]
+						},
+						"description": "solo usuarios logeados pueden hacer pedidos te pedira el id del producto y la cantidad como resultado te dara el total y los detalles del pedido"
+					},
+					"response": []
+				},
+				{
+					"name": "order put",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxOTIzMTYzMiwiZXhwIjoxNjE5MjM4ODMyfQ.CtbJyQzUgHqAaZOWVdNSe0hgprPGzctSjiLbE9RKeVs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"estado\": \"enviado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/order/4",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order",
+								"4"
+							]
+						},
+						"description": "solo administradores pueden cambiar el estado del pedido"
+					},
+					"response": []
+				},
+				{
+					"name": "order delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxODU5ODA2MywiZXhwIjoxNjE4NjA1MjYzfQ.AOIeYvMnLkgOJhxKT2y2MfQUOy077c0DiI5nGXOdE90",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"estado\": \"enviado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/order/9",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"order",
+								"9"
+							]
+						},
+						"description": "se elmina de la base de datos el pedido selecionado por id "
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIsImlhdCI6MTYxODU5Nzc4OSwiZXhwIjoxNjE4NjA0OTg5fQ.hUUEJwVdktF5z5T1aNFRqIU9XCl3XEJMxIFfegzvDe8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"esteban@jhon.com\",\r\n    \"password\":\"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/auth",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth"
+					]
+				},
+				"description": "Se coloca el correo y la contraseña para crear el token "
+			},
+			"response": []
+		}
+	]
+}

@@ -7,27 +7,31 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
-/*----------------------------------------------------------------------------------*/
-/* LA TABLA DE ROL DEBE SER INSERTADA PRIMERO Y COLOCAR ADMIN Y USER*/
-/*----------------------------------------------------------------------------------*/
-
-DROP TABLE IF EXISTS `rols`;
-CREATE TABLE `rols` (
+DROP TABLE IF EXISTS `orderdts`;
+CREATE TABLE `orderdts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `rols` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+  `id_pedido` int(11) DEFAULT NULL,
+  `quantity_orders` int(11) DEFAULT NULL,
+  `total` decimal(10,0) DEFAULT NULL,
+  `productId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_pedido` (`id_pedido`),
+  KEY `productId` (`productId`),
+  CONSTRAINT `orderdts_ibfk_1` FOREIGN KEY (`id_pedido`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `orderdts_ibfk_2` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
-
-INSERT INTO `rols` (`id`, `rols`) VALUES(1, 'ADMIN');
-INSERT INTO `rols` (`id`, `rols`) VALUES(2, 'USER');
-
-/*----------------------------------------------------------------------------------*/
-/*----------------------------------------------------------------------------------*/
-/*----------------------------------------------------------------------------------*/
-
-/*    TABLA DE PRODUCTOS       */
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `total` decimal(10,0) DEFAULT NULL,
+  `formpag` varchar(60) DEFAULT NULL,
+  `estado` varchar(60) NOT NULL,
+  `userId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
@@ -36,22 +40,15 @@ CREATE TABLE `products` (
   `title` varchar(60) NOT NULL,
   `cost` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
+DROP TABLE IF EXISTS `rols`;
+CREATE TABLE `rols` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rols` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `products` (`id`, `picture`, `title`, `cost`) VALUES
-(1, 'www.imagen.com', 'arepita', 2000);
-INSERT INTO `products` (`id`, `picture`, `title`, `cost`) VALUES
-(2, 'www.imagen.com', 'buñuelo', 500);
-INSERT INTO `products` (`id`, `picture`, `title`, `cost`) VALUES
-(3, 'www.imagen.com', 'empanada', 1000);
-INSERT INTO `products` (`id`, `picture`, `title`, `cost`) VALUES
-(4, 'www.imagen.com', 'patacon', 5000);
-
-/*----------------------------------------------------------------------------------*/
-/*----------------------------------------------------------------------------------*/
-
-/*     TABLA DE USUARIOS      */
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -64,9 +61,49 @@ CREATE TABLE `users` (
   `rol` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
-/*--------------------------------     CONTRASEÑA ES 1234      --------------------------------------*/
+INSERT INTO `orderdts` (`id`, `id_pedido`, `quantity_orders`, `total`, `productId`) VALUES
+(1, 1, 1, 1000, 3);
+INSERT INTO `orderdts` (`id`, `id_pedido`, `quantity_orders`, `total`, `productId`) VALUES
+(2, 1, 1, 1000, 3);
+INSERT INTO `orderdts` (`id`, `id_pedido`, `quantity_orders`, `total`, `productId`) VALUES
+(3, 2, 1, 500, 2);
+INSERT INTO `orderdts` (`id`, `id_pedido`, `quantity_orders`, `total`, `productId`) VALUES
+(4, 2, 1, 5000, 4),
+(5, 3, 1, 2000, 1),
+(6, 3, 1, 2000, 1),
+(7, 4, 1, 5000, 4),
+(8, 4, 1, 1000, 3),
+(9, 5, 1, 5000, 4),
+(10, 5, 1, 1000, 3),
+(11, 5, 5, 2000, 1),
+(12, 5, 8, 500, 2);
+
+INSERT INTO `orders` (`id`, `total`, `formpag`, `estado`, `userId`) VALUES
+(1, 2000, 'efectivo', 'nuevo', 2);
+INSERT INTO `orders` (`id`, `total`, `formpag`, `estado`, `userId`) VALUES
+(2, 5500, 'efectivo', 'nuevo', 2);
+INSERT INTO `orders` (`id`, `total`, `formpag`, `estado`, `userId`) VALUES
+(3, 4000, 'efectivo', 'nuevo', 4);
+INSERT INTO `orders` (`id`, `total`, `formpag`, `estado`, `userId`) VALUES
+(4, 6000, 'efectivo', 'nuevo', 4),
+(5, 8500, 'efectivo', 'nuevo', 2);
+
+INSERT INTO `products` (`id`, `picture`, `title`, `cost`) VALUES
+(1, 'www.imagen.com', 'arepita', 2000);
+INSERT INTO `products` (`id`, `picture`, `title`, `cost`) VALUES
+(2, 'www.imagen.com', 'buñuelo', 500);
+INSERT INTO `products` (`id`, `picture`, `title`, `cost`) VALUES
+(3, 'www.imagen.com', 'empanada', 1000);
+INSERT INTO `products` (`id`, `picture`, `title`, `cost`) VALUES
+(4, 'www.imagen.com', 'patacon', 5000);
+
+INSERT INTO `rols` (`id`, `rols`) VALUES
+(1, 'ADMIN');
+INSERT INTO `rols` (`id`, `rols`) VALUES
+(2, 'USER');
+
 
 INSERT INTO `users` (`id`, `name`, `lastname`, `email`, `password`, `phone`, `adress`, `rol`) VALUES
 (1, 'Augusto', 'Flores', 'augusto@flores.com', '$2a$12$StTOXD7GtoQbjQZprlt8xe/msowYVdBGPWANtvQ.pqksLfhdxn8oS', 2222222, 'carrera 23 # 32- 10', 'USER');
@@ -77,41 +114,6 @@ INSERT INTO `users` (`id`, `name`, `lastname`, `email`, `password`, `phone`, `ad
 INSERT INTO `users` (`id`, `name`, `lastname`, `email`, `password`, `phone`, `adress`, `rol`) VALUES
 (4, 'Selena', 'Gomez', 'selena@gomez.com', '$2a$12$Eeef9nQUEVUdNcosiMYhyOyY0lhRj/MBhF7/sRGH45vmZRoR3K/0a', 2222222, 'carrera 23 # 32- 10', 'USER');
 
-/*----------------------------------------------------------------------------------*/
-/*----------------------------------------------------------------------------------*/
-
-/*     TABLA DE PEDIDOS       */
-
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `quantity_orders` decimal(10,0) NOT NULL,
-  `total` varchar(60) DEFAULT NULL,
-  `estado` varchar(60) NOT NULL,
-  `userId` int(11) DEFAULT NULL,
-  `productId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `userId` (`userId`),
-  KEY `productId` (`productId`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
-
-INSERT INTO `orders` (`id`, `quantity_orders`, `total`, `estado`, `userId`, `productId`) VALUES
-(1, 2, '10000', 'new', 2, 4);
-INSERT INTO `orders` (`id`, `quantity_orders`, `total`, `estado`, `userId`, `productId`) VALUES
-(2, 2, '4000', 'new', 2, 1);
-INSERT INTO `orders` (`id`, `quantity_orders`, `total`, `estado`, `userId`, `productId`) VALUES
-(3, 2, '4000', 'new', 3, 1);
-INSERT INTO `orders` (`id`, `quantity_orders`, `total`, `estado`, `userId`, `productId`) VALUES
-(4, 4, '4000', 'new', 3, 3),
-(5, 1, '500', 'new', 1, 2),
-(6, 2, '2000', 'new', 1, 3),
-(7, 2, '10000', 'new', 4, 4),
-(8, 5, '10000', 'new', 4, 1);
-
-/*----------------------------------------------------------------------------------*/
-/*----------------------------------------------------------------------------------*/
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

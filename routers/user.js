@@ -19,19 +19,28 @@ router.get('/', [validateJWT, validateRoles], async(req, res) => {
 router.post('/', async(req, res) => {
     const { name, lastname, email, password, phone, adress, rol } = req.body;
     try {
-        //validate rols
-        const rols = await Rols.findOne({ where: { rols: rol } });
+        if (name && lastname && email && password && phone && adress && rol) {
+            //validate rols
+            const rols = await Rols.findOne({ where: { rols: rol } });
 
-        if (!rols) {
+            if (!rols) {
+                return res.status(401).json({
+                    msg: `The rols ${rol} not exist. only accept USER and ADMIN`
+                });
+            };
+
+            await User.create({ name, lastname, email, password, phone, adress, rol });
+
+        } else {
+
             return res.status(401).json({
-                msg: `The rols ${rol} not exist. only accept USER and ADMIN`
+                msg: 'all fields are required (name, lastname, email, password, phone, adress, rol)'
             });
-        };
-        await User.create({ name, lastname, email, password, phone, adress, rol });
-
+        }
     } catch (error) {
         res.status(500).json(error);
     };
+
     res.json({
         msg: 'post api-controller',
         name,
